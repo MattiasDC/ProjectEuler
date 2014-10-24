@@ -1,26 +1,32 @@
 package projectEuler;
-import extMath.ExtMath;
+
+
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Problem021 extends Problem{
+import extMath.ExtMath;
+
+
+public class Problem021 extends Problem {
 
 	@Override
 	protected String solve() {
 
 		int sumAmicablePairs = 0;
 
-		for (int i = 1; i <= 10000;i++){
-			getNumbersAndDivisors().put(i, ExtMath.getSumDivisors(i));
+		getNumbersAndDivisors().put(1L, 1L);
+		for (long i = 2; i <= 10000; i++) {
+			getNumbersAndDivisors().put(i, ExtMath.getSumDivisors(i) - i);
 		}
 
-		Iterator<Integer> iterator = getNumbersAndDivisors().keySet().iterator();
+		Iterator<Long> iterator = getNumbersAndDivisors().keySet().iterator();
 
-		while (iterator.hasNext()){
+		while (iterator.hasNext()) {
 			long number = iterator.next();
 			long sumDivisors = getNumbersAndDivisors().get(number);
-			
-			if (sumDivisors <= 10000 && getNumbersAndDivisors().get(sumDivisors) == number && sumDivisors != number && sumDivisors != 1){
+
+			if (sumDivisors <= 10000 && getNumbersAndDivisors().get(sumDivisors) == number
+					&& sumDivisors != number && sumDivisors != 1) {
 				sumAmicablePairs += number;
 			}
 		}
@@ -28,9 +34,9 @@ public class Problem021 extends Problem{
 		return sumAmicablePairs + "";
 	}
 
-	public HashMap<Integer, Long> getNumbersAndDivisors() {
+	public HashMap<Long, Long> getNumbersAndDivisors() {
 		return numbersAndDivisors;
 	}
 
-	private HashMap<Integer,Long> numbersAndDivisors = new HashMap<Integer,Long>();
+	private HashMap<Long, Long> numbersAndDivisors = new HashMap<Long, Long>();
 }

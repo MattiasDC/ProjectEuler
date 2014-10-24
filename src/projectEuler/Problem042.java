@@ -1,8 +1,10 @@
 package projectEuler;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 
 public class Problem042 extends Problem {
 
@@ -11,33 +13,36 @@ public class Problem042 extends Problem {
 		try {
 			int answer = 0;
 			readWordsFromFile();
-			
-			for (String word: words){
-				if (isTriangle(getWordValue(word))) answer++;
+
+			for (String word : words) {
+				if (isTriangle(getWordValue(word)))
+					answer++;
 			}
-			
+
 			return answer + "";
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			return "There was an error while reading the file";
 		}
 	}
-	
-	private int getWordValue(String word){
+
+	private int getWordValue(String word) {
 		int wordValue = 0;
-		for (int value : word.toLowerCase().toCharArray()){
-			wordValue += value - 97 +1;
+		for (int value : word.toLowerCase().toCharArray()) {
+			wordValue += value - 97 + 1;
 		}
 		return wordValue;
 	}
-	
-	private void readWordsFromFile() throws IOException{
+
+	private void readWordsFromFile() throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader("Problem42Words"));
 
-		String line;	
-		while ((line = reader.readLine()) != null){
-			words = line.replace("\"","").split(",");
+		String line;
+		while ((line = reader.readLine()) != null) {
+			words = line.replace("\"", "").split(",");
 		}
+		reader.close();
 	}
-	
+
 	private String[] words;
 }

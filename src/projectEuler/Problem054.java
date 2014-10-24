@@ -1,57 +1,61 @@
 package projectEuler;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Stack;
 
+
 public class Problem054 extends Problem {
 
 	@Override
 	protected String solve() {
 		int answer = 0;
-		try{
+		try {
 			getHandsFromFile();
-		}catch (IOException e) {
+		}
+		catch (IOException e) {
 			return "There was an error reading the file";
 		}
 		Cart[] carts, cart1 = new Cart[5], cart2 = new Cart[5];
-		int score1,score2;
-		while (!hands.isEmpty()){
+		int score1, score2;
+		while (!hands.isEmpty()) {
 			currentSubValueOfHand = -1;
 			currentSubValueOfHandPrev = -1;
 			carts = getCarts(hands.pop());
-			for (int i = 0; i <= 4;i++)
+			for (int i = 0; i <= 4; i++)
 				cart1[i] = carts[i];
-			for (int i = 5; i <= 9;i++)
-				cart2[i-5] = carts[i];
+			for (int i = 5; i <= 9; i++)
+				cart2[i - 5] = carts[i];
 			Arrays.sort(cart1);
 			Arrays.sort(cart2);
 			if ((score1 = evaluateHand(cart1)) > (score2 = evaluateHand(cart2)))
 				answer++;
-			else if (score1 == score2){
+			else if (score1 == score2) {
 				if (currentSubValueOfHandPrev > currentSubValueOfHand)
 					answer++;
-				else if (currentSubValueOfHandPrev == currentSubValueOfHand && isOverallHigher(cart1, cart2))
-						answer++;
+				else if (currentSubValueOfHandPrev == currentSubValueOfHand
+						&& isOverallHigher(cart1, cart2))
+					answer++;
 			}
 		}
 
 		return answer + "";
 	}
 
-	private Cart[] getCarts(String hands){
-		Cart[] carts = new Cart[10];		
+	private Cart[] getCarts(String hands) {
+		Cart[] carts = new Cart[10];
 		int i = 0;
-		for (String cart : hands.split(" ")){
+		for (String cart : hands.split(" ")) {
 			carts[i] = new Cart(cart);
 			i++;
 		}
 		return carts;
 	}
 
-	private int evaluateHand(Cart[] carts){
+	private int evaluateHand(Cart[] carts) {
 		if (isRoyalFlush(carts))
 			return 10;
 		else if (isStraightFlush(carts))
@@ -73,61 +77,61 @@ public class Problem054 extends Problem {
 		return 1;
 	}
 
-	private boolean isRoyalFlush(Cart[] carts){
+	private boolean isRoyalFlush(Cart[] carts) {
 		if (carts[0].value != 14 || !isFlush(carts) || !isStraight(carts))
 			return false;
 		return true;
 	}
 
-	private boolean isStraightFlush(Cart[] carts){
+	private boolean isStraightFlush(Cart[] carts) {
 		if (isFlush(carts) && isStraight(carts))
 			return true;
 		return false;
 	}
 
-	private boolean isFourOfAKind(Cart[] carts){
+	private boolean isFourOfAKind(Cart[] carts) {
 		return isXPair(carts, 4);
 	}
 
-	private boolean isFullHouse(Cart[] carts){
+	private boolean isFullHouse(Cart[] carts) {
 		if (isThreeOfAKind(carts) && isTwoPairs(carts))
 			return true;
 		return false;
 	}
 
-	private boolean isFlush(Cart[] carts){
+	private boolean isFlush(Cart[] carts) {
 		Suit suit = carts[0].suit;
-		for (int i = 1; i < carts.length;i++)
+		for (int i = 1; i < carts.length; i++)
 			if (carts[i].suit != suit)
 				return false;
 		return true;
 	}
 
-	private boolean isStraight(Cart[] carts){
+	private boolean isStraight(Cart[] carts) {
 		int value = carts[0].value;
 		for (int i = 1; i < carts.length; i++)
-			if (carts[i].value != value-i)
+			if (carts[i].value != value - i)
 				return false;
 		currentSubValueOfHandPrev = currentSubValueOfHand;
 		currentSubValueOfHand = value;
 		return true;
 	}
 
-	private boolean isThreeOfAKind(Cart[] carts){
+	private boolean isThreeOfAKind(Cart[] carts) {
 		return isXPair(carts, 3);
 	}
 
-	private boolean isTwoPairs(Cart[] carts){
+	private boolean isTwoPairs(Cart[] carts) {
 		int currentValue = carts[0].value, count = 1, pairs = 0, previousValue = -1;
-		for (int i = 1; i < carts.length;i++){
+		for (int i = 1; i < carts.length; i++) {
 			if (currentValue == carts[i].value && currentValue != previousValue)
 				count++;
 			else
 				currentValue = carts[i].value;
-			if (count == 2){
+			if (count == 2) {
 				pairs++;
 				count = 1;
-				if (pairs == 2){
+				if (pairs == 2) {
 					currentSubValueOfHandPrev = currentSubValueOfHand;
 					currentSubValueOfHand = previousValue;
 					return true;
@@ -138,21 +142,21 @@ public class Problem054 extends Problem {
 		return false;
 	}
 
-	private boolean isOnePair(Cart[] carts){
+	private boolean isOnePair(Cart[] carts) {
 		return isXPair(carts, 2);
 	}
-	
-	private boolean isXPair(Cart[] carts, int x){
+
+	private boolean isXPair(Cart[] carts, int x) {
 		int currentValue = carts[0].value;
 		int count = 1;
-		for (int i = 1; i < carts.length;i++){
+		for (int i = 1; i < carts.length; i++) {
 			if (currentValue == carts[i].value)
 				count++;
-			else{
+			else {
 				currentValue = carts[i].value;
 				count = 1;
 			}
-			if (count == x){
+			if (count == x) {
 				currentSubValueOfHandPrev = currentSubValueOfHand;
 				currentSubValueOfHand = currentValue;
 				return true;
@@ -160,7 +164,7 @@ public class Problem054 extends Problem {
 		}
 		return false;
 	}
-	
+
 	private boolean isOverallHigher(Cart[] cart1, Cart[] cart2) {
 		int i = 0;
 		while (cart1[i] == cart2[i])
@@ -170,19 +174,21 @@ public class Problem054 extends Problem {
 		return false;
 	}
 
-	private void getHandsFromFile() throws IOException{
-		BufferedReader reader = new BufferedReader(new FileReader("Problem54Poker"));		
-		String line;	
+	private void getHandsFromFile() throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader("Problem54Poker"));
+		String line;
 		while ((line = reader.readLine()) != null)
 			hands.push(line);
+		reader.close();
 	}
 
 	private int currentSubValueOfHandPrev, currentSubValueOfHand;
 	private Stack<String> hands = new Stack<String>();
 
-	private class Cart implements Comparable<Cart>{
-		public Cart(String cart){
-			String number = cart.substring(0,1);
+	private class Cart implements Comparable<Cart> {
+
+		public Cart(String cart) {
+			String number = cart.substring(0, 1);
 			if (number.equals("T"))
 				this.value = 10;
 			else if (number.equals("J"))
@@ -200,28 +206,28 @@ public class Problem054 extends Problem {
 
 		final int value;
 		final Suit suit;
-		
+
 		@Override
 		public int compareTo(Cart otherCart) {
-			return otherCart.value-this.value;
+			return otherCart.value - this.value;
 		}
-		
-		public String toString(){
-			return value+suit.toString();
+
+		public String toString() {
+			return value + suit.toString();
 		}
-		
+
 	}
-	
+
 	private enum Suit {
 		DIAMONDS("D"), HEARTS("H"), SPADES("S"), CLUBS("C");
-		
+
 		String suit;
-		
-		private Suit(String suit){
+
+		private Suit(String suit) {
 			this.suit = suit;
 		}
-		
-		public static Suit getSuit(String suit){
+
+		public static Suit getSuit(String suit) {
 			if (suit.equals("D"))
 				return Suit.DIAMONDS;
 			else if (suit.equals("H"))
@@ -232,8 +238,8 @@ public class Problem054 extends Problem {
 				return Suit.CLUBS;
 			return null;
 		}
-		
-		public String toString(){
+
+		public String toString() {
 			return suit;
 		}
 	}
