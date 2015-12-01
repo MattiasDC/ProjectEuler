@@ -2,6 +2,7 @@ package projectEuler;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 public class Problem068 extends Problem {
@@ -11,7 +12,13 @@ public class Problem068 extends Problem {
 	@Override
 	protected String solve() {
 		ArrayList<Integer[]> permutations = getPermutations(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8,
-				9, 10 }, Integer::compareTo);
+				9, 10 }, new Comparator<Integer>() {
+
+					@Override
+					public int compare(Integer o1, Integer o2) {
+						return o1.compareTo(o2);
+					}
+				});
 
 		double rowTotal;
 		Integer[] sequence;

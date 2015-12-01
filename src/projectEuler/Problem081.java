@@ -41,9 +41,15 @@ public class Problem081 extends Problem {
 	public int searchBestPathCost(int[][] matrix, int[][] directionsPermitted,
 			Collection<Pair<Integer, Point>> startingPositions, Set<Point> endPositions) {
 
-		Comparator<Pair<Integer, Point>> heuristicalComparator = (Pair<Integer, Point> p1,
-				Pair<Integer, Point> p2) -> Integer.compare(p1.getValue0(), p2.getValue0());
-		PriorityQueue<Pair<Integer, Point>> queue = new PriorityQueue<>(heuristicalComparator);
+		Comparator<Pair<Integer, Point>> heuristicalComparator = new Comparator<Pair<Integer, Point>>(){
+
+			@Override
+			public int compare(Pair<Integer, Point> o1, Pair<Integer, Point> o2) {
+				return o1.getValue0().compareTo(o2.getValue0());
+			}
+			
+		};
+		PriorityQueue<Pair<Integer, Point>> queue = new PriorityQueue<Pair<Integer, Point>>(1, heuristicalComparator);
 
 		for (Pair<Integer, Point> startingPosition : startingPositions) {
 			queue.add(startingPosition);
