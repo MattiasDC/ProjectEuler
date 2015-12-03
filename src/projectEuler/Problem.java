@@ -66,15 +66,14 @@ public abstract class Problem {
 	}
 
 	protected boolean hasDuplicate(String sequence) {
-		for (int i = 0; i < sequence.length() - 1; i++) {
-			for (int j = 0; j < sequence.length(); j++) {
-				if (i == j)
-					continue;
-				if (sequence.charAt(i) == sequence.charAt(j))
-					return true;
+		HashSet<Character> duplicateChecker = new HashSet<>();
+		for (int i = 0; i < sequence.length(); i++) {
+			if (duplicateChecker.contains(sequence.charAt(i))){
+				return false;
 			}
+			duplicateChecker.add(sequence.charAt(i));
 		}
-		return false;
+		return true;
 	}
 
 	protected boolean containsToHighestDigit(String number) {
