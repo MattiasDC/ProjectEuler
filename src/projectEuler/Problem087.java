@@ -7,7 +7,7 @@ public class Problem087 extends Problem {
 	@Override
 	protected String solve() {
 		int solutions = 0;
-		int goal = 100;
+		int goal = 50;
 
 		HashMap<Integer, Integer> primesBelow = new HashMap<Integer, Integer>();
 
@@ -22,10 +22,10 @@ public class Problem087 extends Problem {
 				x = getPrimeBelow(x);
 				int initialx = x, solutionsNow = solutions;
 				while (x != 0) {
-					// if (primesBelow.containsKey(x)) {
-					// solutions += primesBelow.get(x);
-					// break;
-					// }
+					if (primesBelow.containsKey(x)) {
+						solutions += primesBelow.get(x);
+						break;
+					}
 					System.out.println(x
 							+ " "
 							+ y
@@ -34,6 +34,8 @@ public class Problem087 extends Problem {
 							+ " "
 							+ Integer.toString(x * x + y * y * y + z * z * z
 									* z));
+					if (x * x + y * y * y + z * z * z * z == goal)
+						System.out.println("nu");
 					solutions++;
 					x = getPrimeBelow(x);
 				}
