@@ -1,18 +1,16 @@
 package projectEuler;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 public class Problem087 extends Problem {
 
 	@Override
 	protected String solve() {
-		int solutions = 0;
-		int goal = 50;
-
-		HashMap<Integer, Integer> primesBelow = new HashMap<Integer, Integer>();
+		int goal = 50000000;
+		HashSet<Integer> solutionsNumbers = new HashSet<Integer>();
 
 		createSieve((int) Math.sqrt(goal));
-		int x, y, z = (int) (Math.pow(goal, 1.0 / 4.0) + 1);
+		int x, y, z = (int) (Math.pow(goal, 1.0 / 4.0) + 1), number;
 		while (z != 2) {
 			z = getPrimeBelow(z);
 			y = (int) Math.pow(goal - (int) Math.pow(z, 4), 1.0 / 3.0) + 1;
@@ -20,30 +18,17 @@ public class Problem087 extends Problem {
 				y = getPrimeBelow(y);
 				x = (int) Math.sqrt(goal - Math.pow(z, 4) - Math.pow(y, 3)) + 1;
 				x = getPrimeBelow(x);
-				int initialx = x, solutionsNow = solutions;
 				while (x != 0) {
-					if (primesBelow.containsKey(x)) {
-						solutions += primesBelow.get(x);
-						break;
+					number = x * x + y * y * y + z * z * z * z;
+					if (!solutionsNumbers.contains(number)) {
+						solutionsNumbers.add(number);
 					}
-					System.out.println(x
-							+ " "
-							+ y
-							+ " "
-							+ z
-							+ " "
-							+ Integer.toString(x * x + y * y * y + z * z * z
-									* z));
-					if (x * x + y * y * y + z * z * z * z == goal)
-						System.out.println("nu");
-					solutions++;
 					x = getPrimeBelow(x);
 				}
-				primesBelow.put(initialx, solutions - solutionsNow);
 			}
 		}
 
-		return Long.toString(solutions);
+		return Long.toString(solutionsNumbers.size());
 	}
 
 }
