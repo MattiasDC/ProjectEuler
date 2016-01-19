@@ -264,9 +264,11 @@ public class ProblemRunner {
 		//
 		// problem = new Problem086();
 		// problem.run();
+		//
+		// problem = new Problem087();
+		// problem.run();
 
-		problem = new Problem087();
+		problem = new Problem088();
 		problem.run();
-
 	}
 }
