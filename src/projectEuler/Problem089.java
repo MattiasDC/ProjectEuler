@@ -4,8 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
 
 public class Problem089 extends Problem {
+
+	Map<Character, Integer> signs = new ImmutableMap.Builder<Character, Integer>().put('I', 1).put('V', 5).put('X', 10)
+			.put('L', 50).put('C', 100).put('D', 500).put('M', 1000).build();
 
 	@Override
 	protected String solve() {
@@ -21,6 +27,9 @@ public class Problem089 extends Problem {
 	private int romanValue(String roman) {
 		int value = 0;
 
+		char prevSign = 0;
+		for (char c : roman.toCharArray()) {
+		}
 		return value;
 	}
 
