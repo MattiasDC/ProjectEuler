@@ -270,8 +270,11 @@ public class ProblemRunner {
 		//
 		// problem = new Problem088();
 		// problem.run();
+		//
+		// problem = new Problem089();
+		// problem.run();
 
-		problem = new Problem089();
+		problem = new Problem090();
 		problem.run();
 	}
 }

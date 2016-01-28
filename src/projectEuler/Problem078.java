@@ -1,8 +1,6 @@
 package projectEuler;
 
-
 import java.util.HashMap;
-
 
 public class Problem078 extends Problem {
 
@@ -12,11 +10,12 @@ public class Problem078 extends Problem {
 
 		while (partitionFunctionRemainder(++answer, remainder) != 0)
 			;
-		;
 
+		partitionFunctionRemainder(5, 7);
 		return answer + "";
 	}
 
+	// Using Pentagonal number theorem
 	private long partitionFunctionRemainder(int n, int remainder) {
 		if (partitionResults.containsKey(n)) {
 			return partitionResults.get(n);
