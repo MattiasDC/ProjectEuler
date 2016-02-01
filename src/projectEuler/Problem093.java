@@ -41,17 +41,21 @@ public class Problem093 extends Problem {
 		return answer.toString();
 	}
 
+	// DP solution, starting with possible outcomes of tuples with 1 element
+	// (number itself), expanding to tuples with 2 elements, ...
 	private void findPossibilities() {
 		boolean changed = true;
 		ArrayList<HashSet<Integer>> iterator1, iterator2;
-		HashSet<Integer> ctuple;
+		HashSet<Integer> ctuple, t1, t2;
 		int prevSize;
 		while (changed) {
 			changed = false;
 			iterator1 = new ArrayList<HashSet<Integer>>(this.possibilities.keySet());
-			for (HashSet<Integer> t1 : iterator1) {
+			for (int i = 0; i < iterator1.size(); i++) {
+				t1 = iterator1.get(i);
 				iterator2 = new ArrayList<HashSet<Integer>>(this.possibilities.keySet());
-				for (HashSet<Integer> t2 : iterator2) {
+				for (int j = i + 1; j < iterator2.size(); j++) {
+					t2 = iterator2.get(j);
 					if (t1.size() + t2.size() > 4 || containsADuplicate(t1, t2)) {
 						continue;
 					}
