@@ -182,7 +182,7 @@ public class ProblemRunner {
 		// problem.run();
 		//
 		// problem = new Problem059();
-		// //problem.run();
+		// // problem.run();
 		//
 		// problem = new Problem060();
 		// problem.run();
@@ -288,12 +288,20 @@ public class ProblemRunner {
 		//
 		// problem = new Problem094();
 		// problem.run();
-
-		problem = new Problem097();
+		//
+		// problem = new Problem095();
+		// problem.run();
+		//
+		problem = new Problem096();
 		problem.run();
-
+		//
+		// problem = new Problem097();
+		// problem.run();
 		//
 		// problem = new Problem099();
 		// problem.run();
+
+		System.out.println("Total time: " + ((System.nanoTime() - start) / 1000000) + "ms");
+		System.out.println("Average time: " + ((System.nanoTime() - start) / (1000000 * 96)) + "ms");
 	}
 }
