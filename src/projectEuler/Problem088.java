@@ -17,7 +17,7 @@ public class Problem088 extends Problem {
 
 		for (int k = 2; k <= 12000; k++) {
 			for (int i = k; i < Integer.MAX_VALUE; i++) {
-				if (findMinimum(i, k)) {
+				if (canForm(i, k)) {
 					if (!already.contains(i)) {
 						answer += i;
 						already.add(i);
@@ -32,7 +32,7 @@ public class Problem088 extends Problem {
 
 	HashMap<Pair<Integer, Integer>, Boolean> memo = new HashMap<>();
 
-	private boolean findMinimum(int n, int k) {
+	private boolean canForm(int n, int k) {
 		Pair<Integer, Integer> p = new Pair<Integer, Integer>(n, k);
 		if (memo.containsKey(p)) {
 			return memo.get(p);
@@ -47,12 +47,12 @@ public class Problem088 extends Problem {
 				memo.put(p, true);
 				return true;
 			} else if (tmp < k) {
-				t = findMinimum(divisors.get(i), k - tmp + 1);
+				t = canForm(divisors.get(i), k - tmp + 1);
 				if (t) {
 					memo.put(p, true);
 					return true;
 				}
-				t = findMinimum(divisors.get(size - i - 1), k - tmp + 1);
+				t = canForm(divisors.get(size - i - 1), k - tmp + 1);
 				if (t) {
 					memo.put(p, true);
 					return true;

@@ -116,6 +116,7 @@ public class Problem089 extends Problem {
 			while ((line = reader.readLine()) != null) {
 				romans.add(line);
 			}
+			reader.close();
 			return romans;
 		} catch (IOException e) {
 			e.printStackTrace();

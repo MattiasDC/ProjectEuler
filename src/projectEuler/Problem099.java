@@ -38,6 +38,7 @@ public class Problem099 extends Problem {
 				values.add(
 						new Pair<Integer, Integer>(Integer.valueOf(splittedLine[0]), Integer.valueOf(splittedLine[1])));
 			}
+			reader.close();
 			return values;
 		} catch (IOException e) {
 			e.printStackTrace();
