@@ -10,9 +10,8 @@ import com.google.common.collect.ImmutableMap;
 
 public class Problem089 extends Problem {
 
-	Map<Character, Integer> signs = new ImmutableMap.Builder<Character, Integer>()
-			.put('I', 1).put('V', 5).put('X', 10).put('L', 50).put('C', 100)
-			.put('D', 500).put('M', 1000).build();
+	Map<Character, Integer> signs = new ImmutableMap.Builder<Character, Integer>().put('I', 1).put('V', 5).put('X', 10)
+			.put('L', 50).put('C', 100).put('D', 500).put('M', 1000).build();
 
 	@Override
 	protected String solve() {
@@ -112,12 +111,12 @@ public class Problem089 extends Problem {
 	private ArrayList<String> readData() {
 		try {
 			ArrayList<String> romans = new ArrayList<String>();
-			BufferedReader reader = new BufferedReader(new FileReader(
-					"Problem89Roman.txt"));
+			BufferedReader reader = new BufferedReader(new FileReader("Problem89Roman"));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				romans.add(line);
 			}
+			reader.close();
 			return romans;
 		} catch (IOException e) {
 			e.printStackTrace();
