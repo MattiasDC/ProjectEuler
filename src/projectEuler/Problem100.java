@@ -17,7 +17,6 @@ public class Problem100 extends Problem {
 			if (x.remainder(BigDecimal.ONE).compareTo(TENETWENTY) <= 0) {
 				if (y.compareTo(new BigDecimal(Math.pow(10, 12))) > 0) {
 					x = x.setScale(0);
-					System.out.println(newCoef);
 					break;
 				}
 				newCoef = y.divide(last, new MathContext(20));
@@ -42,7 +41,6 @@ public class Problem100 extends Problem {
 			x1 = A.divide(x0, SCALE, BigDecimal.ROUND_HALF_UP);
 			x1 = x1.add(x0);
 			x1 = x1.divide(TWO, SCALE, BigDecimal.ROUND_HALF_UP);
-
 		}
 		return x1;
 	}

@@ -297,14 +297,20 @@ public class ProblemRunner {
 		//
 		// problem = new Problem097();
 		// problem.run();
-
+		//
 		// problem = new Problem098();
 		// problem.run();
 		//
 		// problem = new Problem099();
 		// problem.run();
+		//
+		// problem = new Problem100();
+		// problem.run();
+		//
+		// problem = new Problem101();
+		// problem.run();
 
-		problem = new Problem100();
+		problem = new Problem102();
 		problem.run();
 
 		System.out.println("Total time: " + ((System.nanoTime() - start) / 1000000) + "ms");

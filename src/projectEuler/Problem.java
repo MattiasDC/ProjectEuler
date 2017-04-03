@@ -22,8 +22,7 @@ public abstract class Problem {
 
 		String answer = solve();
 		long elapsedTime = (System.nanoTime() - begin) / 1000000;
-		System.out.println(getClass().getSimpleName() + ": " + answer
-				+ " and was solved in " + elapsedTime + "ms");
+		System.out.println(getClass().getSimpleName() + ": " + answer + " and was solved in " + elapsedTime + "ms");
 
 	}
 
@@ -31,8 +30,7 @@ public abstract class Problem {
 
 	protected boolean isPalindrome(String candidate) {
 		for (int i = 0; i <= candidate.length() / 2; i++) {
-			if (candidate.charAt(i) != candidate.charAt(candidate.length() - 1
-					- i))
+			if (candidate.charAt(i) != candidate.charAt(candidate.length() - 1 - i))
 				return false;
 		}
 		return true;
@@ -57,18 +55,15 @@ public abstract class Problem {
 	}
 
 	protected int getIthReverseNumber(int number, int place) {
-		return (int) ((number % ((int) Math.pow(10, place))) / (int) Math.pow(
-				10, place - 1));
+		return (int) ((number % ((int) Math.pow(10, place))) / (int) Math.pow(10, place - 1));
 	}
 
 	protected int getIthReverseNumber(long number, int place) {
-		return (int) ((number % ((int) Math.pow(10, place))) / (int) Math.pow(
-				10, place - 1));
+		return (int) ((number % ((int) Math.pow(10, place))) / (int) Math.pow(10, place - 1));
 	}
 
 	protected boolean isPandigit(String number) {
-		return !hasDuplicate(number + "")
-				&& containsToHighestDigit(number + "") && !number.contains("0");
+		return !hasDuplicate(number + "") && containsToHighestDigit(number + "") && !number.contains("0");
 	}
 
 	protected boolean hasDuplicate(String sequence) {
@@ -150,8 +145,7 @@ public abstract class Problem {
 	}
 
 	protected ArrayList<Integer> getDigits(int number) {
-		ArrayList<Integer> digits = new ArrayList<Integer>(
-				getNumberOfDigits(number));
+		ArrayList<Integer> digits = new ArrayList<Integer>(getNumberOfDigits(number));
 		int numberDigits = getNumberOfDigits(number);
 
 		for (int i = 0; i < numberDigits; i++) {
@@ -162,8 +156,7 @@ public abstract class Problem {
 	}
 
 	protected ArrayList<Integer> getDigits(long number) {
-		ArrayList<Integer> digits = new ArrayList<Integer>(
-				getNumberOfDigits(number));
+		ArrayList<Integer> digits = new ArrayList<Integer>(getNumberOfDigits(number));
 		int numberDigits = getNumberOfDigits(number);
 		for (int i = 0; i < numberDigits; i++) {
 			digits.add((int) (number % 10));
@@ -173,27 +166,12 @@ public abstract class Problem {
 	}
 
 	protected boolean isPermutationOf(long original, long candidate) {
-		return HashMultiset.create(getDigits(original)).equals(
-				HashMultiset.create(getDigits(candidate)));
+		return HashMultiset.create(getDigits(original)).equals(HashMultiset.create(getDigits(candidate)));
 
 	}
 
 	protected boolean isPermutationOf(int original, int candidate) {
-		if (getNumberOfDigits(original) != getNumberOfDigits(candidate)
-				|| getHighestDigit(original) != getHighestDigit(candidate)) {
-			return false;
-		}
-		HashSet<Integer> digits = new HashSet<Integer>();
-		for (int digit : getDigits(original)) {
-			digits.add(digit);
-		}
-		for (int digit : getDigits(candidate)) {
-			if (!digits.contains(digit)) {
-				return false;
-			}
-		}
-		return true;
-
+		return HashMultiset.create(getDigits(original)).equals(HashMultiset.create(getDigits(candidate)));
 	}
 
 	protected boolean isOctagonal(int x) {
@@ -244,8 +222,7 @@ public abstract class Problem {
 		return x * (x + 1) / 2;
 	}
 
-	protected <T> ArrayList<T[]> getPermutations(T[] dictionary,
-			Comparator<T> comparator) {
+	protected <T> ArrayList<T[]> getPermutations(T[] dictionary, Comparator<T> comparator) {
 		ArrayList<T[]> permutations = new ArrayList<T[]>();
 
 		Arrays.sort(dictionary, comparator);
@@ -258,8 +235,7 @@ public abstract class Problem {
 
 		while (true) {
 			for (int i = length - 2; i >= 0; i--) {
-				if (i == 0
-						&& comparator.compare(dictionary[i], dictionary[i + 1]) >= 0)
+				if (i == 0 && comparator.compare(dictionary[i], dictionary[i + 1]) >= 0)
 					return permutations;
 				if (comparator.compare(dictionary[i], dictionary[i + 1]) < 0) {
 					k = i;
@@ -288,25 +264,19 @@ public abstract class Problem {
 		}
 	}
 
-	protected Pair<ContinuedFraction, Integer> getNextContinuedFraction(
-			ContinuedFraction fraction) {
+	protected Pair<ContinuedFraction, Integer> getNextContinuedFraction(ContinuedFraction fraction) {
 		ContinuedFraction newFraction = fraction;
 		Double newDenominator;
 		Pair<Double, Double> newNumerator;
 
-		newDenominator = (double) Math
-				.round((newFraction.numerator.getValue0() + newFraction.numerator
-						.getValue1())
-						* (newFraction.numerator.getValue0() - newFraction.numerator
-								.getValue1()) / newFraction.denominator);
+		newDenominator = (double) Math.round((newFraction.numerator.getValue0() + newFraction.numerator.getValue1())
+				* (newFraction.numerator.getValue0() - newFraction.numerator.getValue1()) / newFraction.denominator);
 
-		int extractedValue = (int) ((newFraction.numerator.getValue0() - newFraction.numerator
-				.getValue1()) / newDenominator);
+		int extractedValue = (int) ((newFraction.numerator.getValue0() - newFraction.numerator.getValue1())
+				/ newDenominator);
 
-		newNumerator = new Pair<Double, Double>(
-				newFraction.numerator.getValue0(),
-				-newFraction.numerator.getValue1() - extractedValue
-						* newDenominator);
+		newNumerator = new Pair<Double, Double>(newFraction.numerator.getValue0(),
+				-newFraction.numerator.getValue1() - extractedValue * newDenominator);
 		newFraction = new ContinuedFraction(newNumerator, newDenominator);
 
 		return new Pair<ContinuedFraction, Integer>(newFraction, extractedValue);
@@ -314,11 +284,9 @@ public abstract class Problem {
 
 	protected Fraction evaluateFraction(List<Integer> splittedValues) {
 
-		Fraction convergingFraction = new Fraction(
-				splittedValues.get(splittedValues.size() - 1), 1);
+		Fraction convergingFraction = new Fraction(splittedValues.get(splittedValues.size() - 1), 1);
 		for (int i = splittedValues.size() - 2; i >= 0; i--) {
-			convergingFraction = convergingFraction.inverse().sum(
-					new Fraction(splittedValues.get(i), 1));
+			convergingFraction = convergingFraction.inverse().sum(new Fraction(splittedValues.get(i), 1));
 		}
 		return convergingFraction;
 	}
@@ -326,21 +294,17 @@ public abstract class Problem {
 	protected BigFraction evaluateBigFraction(List<Integer> splittedValues) {
 
 		BigFraction convergingFraction = new BigFraction(
-				BigInteger
-						.valueOf(splittedValues.get(splittedValues.size() - 1)),
-				BigInteger.ONE);
+				BigInteger.valueOf(splittedValues.get(splittedValues.size() - 1)), BigInteger.ONE);
 		for (int i = splittedValues.size() - 2; i >= 0; i--) {
-			convergingFraction = convergingFraction.inverse().add(
-					new BigFraction(BigInteger.valueOf(splittedValues.get(i)),
-							BigInteger.ONE));
+			convergingFraction = convergingFraction.inverse()
+					.add(new BigFraction(BigInteger.valueOf(splittedValues.get(i)), BigInteger.ONE));
 		}
 		return convergingFraction;
 	}
 
 	protected class ContinuedFraction {
 
-		public ContinuedFraction(Pair<Double, Double> numerator,
-				Double denominator) {
+		public ContinuedFraction(Pair<Double, Double> numerator, Double denominator) {
 			this.numerator = numerator;
 			this.denominator = denominator;
 		}
@@ -352,10 +316,8 @@ public abstract class Problem {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result
-					+ ((denominator == null) ? 0 : denominator.hashCode());
-			result = prime * result
-					+ ((numerator == null) ? 0 : numerator.hashCode());
+			result = prime * result + ((denominator == null) ? 0 : denominator.hashCode());
+			result = prime * result + ((numerator == null) ? 0 : numerator.hashCode());
 			return result;
 		}
 
