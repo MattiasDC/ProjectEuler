@@ -29,8 +29,10 @@ public class Problem078 extends Problem {
 
 		long partitions = 0, valueToAdd;
 		for (int i = 1; makePentagonal(i) <= n; i++) {
-			valueToAdd = partitionFunctionRemainder(n - makePentagonal(i), remainder)
-					+ partitionFunctionRemainder(n - makePentagonal(-i), remainder);
+			valueToAdd = partitionFunctionRemainder(n - makePentagonal(i),
+					remainder)
+					+ partitionFunctionRemainder(n - makePentagonal(-i),
+							remainder);
 			if (i % 2 == 0) {
 				valueToAdd *= -1;
 			}
